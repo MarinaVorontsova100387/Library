@@ -1,0 +1,105 @@
+@startuml
+'https://plantuml.com/class-diagram
+
+class Date {
+- day : int
+- month : int
+- year : int
+
++ Date(day : int, month : int, year : int)
+
+- SetDay(day : int) : void
+- SetMonth(month : int) : void
+
++ GetDay() : int
++ GetMonth() : int
++ GetYear() : int
+
++ ToString() : string
+}
+
+Date <--* Author
+class Author {
+- first_name : string
+- last_name : string
+- patronymic : string
+- date_of_birth : Date
+- date_of_dead : Date
+
++ Author(first_name : string, last_name : string, patronymic : string, date_of_birth : Date)
+
++ SetDateOfDead(date : Date) : void
+
++ GetFirstName() : string
++ GetLastName() : string
++ GetPatronymic() : string
++ GetFullName() : string
+
++ GetDateOfBirth() : Date
++ GetDateOfDead() : Date
+}
+
+Date <--* Book
+Author <--o Book
+class Book {
+- title : string
+- authors : Author[]
+- publisher : string
+- year_of_publishing : Date
+
++ Book(title : string, authors : Author[], publisher : string, year_of_publishing : Date)
++ Book(title : string, author : Author, publisher : string, year_of_publishing : Date)
+
++ GetTitle() : string
++ GetAuthors() : Author[]
++ GetPublisher() : string
++ GetYearOfPublishing() : Date
+}
+
+Book <--o Library
+class Library {
+- books : map<Book, bool>
+
++ Library()
++ Library(books : map<Book, bool>)
+
++ AddBook(book : Book) : void
++ DelBook(book : Book) : void
+
++ LandingOfBook(book : Book) : bool
++ AcceptingOfBook(book : Book) : bool
+}
+
+Book <--* Product
+class Product {
+- book : Book
+- cost : double
+- price : double
+- amount : int
+
++ Product(book : Book, cost : double, price : double, amount : int)
+
++ GetBook() : Book
++ GetCost() : double
++ GetPrice() : double
++ GetAmount() : int
+
++ SetPrice(price : double) : void
++ SetAmount(amount : int) : void
+}
+
+Product <--o Shop
+class Shop {
+- products : Product[]
+
++ Shop()
++ Shop(products : Product[])
+
++ AddBook(book : Book, cost : double, price : double, amount : int) : void
++ AddBook(product : Product) : void
++ DelBook(book : Book) : void
+
++ Sale(book : Book) : bool
+}
+
+@enduml
